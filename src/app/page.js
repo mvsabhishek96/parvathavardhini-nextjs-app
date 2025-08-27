@@ -10,14 +10,16 @@ export default function HomePage() {
   return (
     <div className="w-full">
       {user ? (
+        // If user is logged in, show the Header and DonationForm
         <>
           <Header />
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-8 w-full">
             <DonationForm />
           </div>
         </>
       ) : (
-        <div className="flex justify-center items-center min-h-screen">
+        // If user is not logged in, show the LoginForm
+        <div className="flex justify-center items-center w-full">
           <LoginForm />
         </div>
       )}

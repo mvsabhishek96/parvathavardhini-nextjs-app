@@ -2,11 +2,8 @@
 import { useUserStore } from '@/store/userStore';
 
 export default function Header() {
-  // Get the user object and logout action from our global store
   const { user, logout } = useUserStore();
 
-  // This is a "guard clause". If there is no user, this component
-  // will render nothing, so it stays hidden until login is complete.
   if (!user) {
     return null;
   }
@@ -18,7 +15,7 @@ export default function Header() {
         <span className="font-bold text-maroon-800">{user.email}</span>
       </div>
       <button
-        onClick={logout} // When clicked, this calls the logout action from our store
+        onClick={logout}
         className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors"
       >
         <i className="fas fa-sign-out-alt mr-2"></i>

@@ -4,21 +4,11 @@
 
 body {
     background-color: #f5f0e1;
-    font-family: 'Poppins', sans-serif;
-    color: #4A2A2A;
-}
-
-.form-container {
-    background: rgba(255, 248, 225, 0.75);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
 }
 
 /* Responsive Table Styles for Mobile */
 @media (max-width: 767px) {
-    table thead {
-        display: none;
-    }
+    table thead { display: none; }
     table tr {
         display: block;
         border: 1px solid rgba(128, 0, 0, 0.2);
@@ -34,9 +24,7 @@ body {
         position: relative;
         padding-left: 50%;
     }
-    table td:last-child {
-        border-bottom: 0;
-    }
+    table td:last-child { border-bottom: 0; }
     table td:before {
         content: attr(data-label);
         position: absolute;
@@ -50,7 +38,5 @@ body {
         padding-left: 10px;
         justify-content: center;
     }
-    .action-cell:before {
-        content: "";
-    }
+    .action-cell:before { content: ""; }
 }

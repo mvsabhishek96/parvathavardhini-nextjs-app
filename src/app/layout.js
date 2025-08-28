@@ -2,7 +2,6 @@ import AuthListener from '@/components/AuthListener';
 import './globals.css';
 import { Laila, Poppins } from 'next/font/google';
 
-// Setup custom fonts from your original design
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
@@ -20,6 +19,12 @@ const laila = Laila({
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${laila.variable}`}>
+      {/* This head section is required */}
+      <head>
+        <title>Committee Donation Form</title>
+        {/* This link is what makes the icons appear */}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+      </head>
       <body>
         <AuthListener />
         <div className="slideshow fixed top-0 left-0 w-full h-full -z-10 overflow-hidden">

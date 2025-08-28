@@ -14,6 +14,31 @@ export default function DonationForm() {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const openWhatsApp = (phone, name, city, gothra, donationDisplay) => {
+      const user = auth.currentUser;
+      const committeeMember = user ? user.displayName || user.email : "a committee member";
+      const whatsappMessage = `✨ *Donation Confirmation* ✨\n\nThank you for your generous donation to the temple.\n\n*Details:*\n- *Name:* ${name}\n- *City:* ${city}\n- *Gothra:* ${gothra}\n- ${donationDisplay}\n- *Phone:* ${phone}\n\n_Recorded by: ${committeeMember}_`;
+      const whatsappUrl = `https://wa.me/91${phone}?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, '_blank');
+  };
+
+  const pickContact = async () => {
+      if ('contacts' in navigator && 'select' in navigator.contacts) {
+          try {
+              const contacts = await navigator.contacts.select(['tel'], { multiple: false });
+              if (contacts.length > 0 && contacts[0].tel.length > 0) {
+                  let sanitized = contacts[0].tel[0].replace(/\D/g, '');
+                  if (sanitized.startsWith('91') && sanitized.length > 10) sanitized = sanitized.substring(2);
+                  setPhoneNumber(sanitized);
+              }
+          } catch (error) {
+              console.error('Contact Picker error:', error);
+          }
+      } else {
+          alert('Contact Picker is not supported on your browser.');
+      }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
@@ -23,42 +48,43 @@ export default function DonationForm() {
     const donationValue = isCash ? amount : inKindDescription;
 
     if (!name || !city || !gothra || !donationValue || !phoneNumber) {
-      setMessage('Error: Please fill in all fields.');
-      setIsSubmitting(false);
-      return;
+        setMessage('Error: Please fill in all fields.');
+        setIsSubmitting(false);
+        return;
     }
 
-    const collectionName = isCash ? "Submissions" : "InKindDonations";
     const userEmail = auth.currentUser.email;
+    const collectionName = isCash ? "Submissions" : "InKindDonations";
 
     try {
-      const dataToSave = { name, city, gothra, phoneNumber, timestamp: serverTimestamp() };
-      if (isCash) {
-        dataToSave.amount = parseFloat(amount);
-      } else {
-        dataToSave.description = inKindDescription;
-      }
-      
-      const docRef = collection(db, "CommitteeMembers", userEmail, collectionName);
-      await addDoc(docRef, dataToSave);
-      
-      setMessage('Success! Donation saved.');
-      setName(''); setCity(''); setGothra(''); setAmount('');
-      setInKindDescription(''); setPhoneNumber('');
+        const dataToSave = { name, city, gothra, phoneNumber, timestamp: serverTimestamp() };
+        if (isCash) {
+            dataToSave.amount = parseFloat(amount);
+        } else {
+            dataToSave.description = inKindDescription;
+        }
 
+        const docRef = collection(db, "CommitteeMembers", userEmail, collectionName);
+        await addDoc(docRef, dataToSave);
+
+        setMessage('Success! Donation saved.');
+
+        const donationDisplay = isCash ? `Amount: ₹${parseFloat(amount).toFixed(2)}` : `Items: ${inKindDescription}`;
+        openWhatsApp(phoneNumber, name, city, gothra, donationDisplay);
+
+        setName(''); setCity(''); setGothra(''); setAmount('');
+        setInKindDescription(''); setPhoneNumber('');
     } catch (error) {
-      console.error("Error saving donation:", error);
-      setMessage('Error: Failed to save donation. Please check Firestore Rules.');
+        console.error("Error saving donation:", error);
+        setMessage('Error: Failed to save donation.');
     } finally {
-      setIsSubmitting(false);
+        setIsSubmitting(false);
     }
   };
 
   return (
     <div className="bg-white/70 backdrop-blur-lg p-8 rounded-xl shadow-lg max-w-md w-full">
-      <h2 className="text-3xl font-bold text-center text-maroon-800 font-display mb-6">
-        Enter Donation Details
-      </h2>
+      <h2 className="text-3xl font-bold text-center text-maroon-800 font-display mb-6">Enter Donation Details</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-maroon-800 text-sm font-bold mb-2">Donation Type</label>
@@ -72,19 +98,21 @@ export default function DonationForm() {
         <div className="mb-4"><label htmlFor="name" className="block text-maroon-800 text-sm font-bold mb-2">Name</label><input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="shadow border rounded-lg w-full py-3 px-4" /></div>
         <div className="mb-4"><label htmlFor="city" className="block text-maroon-800 text-sm font-bold mb-2">City</label><input type="text" id="city" value={city} onChange={(e) => setCity(e.target.value)} className="shadow border rounded-lg w-full py-3 px-4" /></div>
         <div className="mb-4"><label htmlFor="gothra" className="block text-maroon-800 text-sm font-bold mb-2">Gothra</label><input type="text" id="gothra" value={gothra} onChange={(e) => setGothra(e.target.value)} className="shadow border rounded-lg w-full py-3 px-4" /></div>
-        
+
         {donationType === 'cash' ? (
           <div className="mb-4"><label htmlFor="amount" className="block text-maroon-800 text-sm font-bold mb-2">Amount (₹)</label><input type="number" id="amount" value={amount} onChange={(e) => setAmount(e.target.value)} className="shadow border rounded-lg w-full py-3 px-4" /></div>
         ) : (
           <div className="mb-4"><label htmlFor="inKindDescription" className="block text-maroon-800 text-sm font-bold mb-2">Item Description</label><input type="text" id="inKindDescription" value={inKindDescription} onChange={(e) => setInKindDescription(e.target.value)} className="shadow border rounded-lg w-full py-3 px-4" /></div>
         )}
-        
-        <div className="mb-6"><label htmlFor="phoneNumber" className="block text-maroon-800 text-sm font-bold mb-2">Phone Number</label><input type="tel" id="phoneNumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="shadow border rounded-lg w-full py-3 px-4" /></div>
-        
+
+        <div className="mb-6"><label htmlFor="phoneNumber" className="block text-maroon-800 text-sm font-bold mb-2">Phone Number</label>
+            <div className="relative"><input type="tel" id="phoneNumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="shadow border rounded-lg w-full py-3 px-4 pr-10" /><i onClick={pickContact} className="fas fa-address-book absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-maroon-800"></i></div>
+        </div>
+
         {message && <p className={`text-center mb-4 font-bold ${message.startsWith('Error') ? 'text-red-500' : 'text-green-600'}`}>{message}</p>}
-        
+
         <button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-orange-400 to-yellow-500 hover:scale-105 transition-transform text-maroon-900 font-bold py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed">
-          {isSubmitting ? 'Saving...' : 'Submit Donation'}
+          {isSubmitting ? 'Saving...' : 'Save & Send WhatsApp'}
         </button>
       </form>
     </div>

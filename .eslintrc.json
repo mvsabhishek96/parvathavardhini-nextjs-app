@@ -1,0 +1,4 @@
+// .eslintrc.json (create this in the root directory)
+{
+  "extends": "next/core-web-vitals"
+}

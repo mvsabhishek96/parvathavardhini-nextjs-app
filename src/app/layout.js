@@ -28,9 +28,6 @@ export default function RootLayout({ children }) {
       <body>
         <AuthListener />
         
-        {/* Decorative Temple Top */}
-        <div className="temple-top"></div>
-        
         {/* Background Slideshow */}
         <div className="slideshow">
           <Image 
@@ -39,6 +36,7 @@ export default function RootLayout({ children }) {
             fill
             className="slideshow-image" 
             style={{ animationDelay: '0s' }} 
+            priority
           />
           <Image 
             src="/images/image2.jpg" 
@@ -58,9 +56,9 @@ export default function RootLayout({ children }) {
 
         <div className="container mx-auto p-4 relative z-10 flex flex-col min-h-screen text-dark">
           <header className="logo text-center my-6">
-            <div className="inline-block p-4 rounded-2xl bg-white/70 backdrop-blur-sm traditional-border">
+            <div className="inline-block p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-maroon-300 shadow-lg">
               <h1 className="text-4xl lg:text-5xl font-bold text-maroon-800 font-display mb-2">
-                <i className="fas fa-om text-gold-600 mr-3"></i>Divine Donation Portal
+                <i className="fas fa-om text-gold-500 mr-3"></i>Divine Donation Portal
               </h1>
               <p className="text-maroon-700 italic">Serve with devotion, give with heart</p>
             </div>
@@ -70,7 +68,7 @@ export default function RootLayout({ children }) {
             {children}
           </main>
 
-          <footer className="w-full text-center p-4 mt-8 text-white text-sm font-light bg-maroon-900/80 rounded-lg">
+          <footer className="w-full text-center p-4 mt-8 text-white text-sm font-light bg-maroon-800/80 rounded-lg">
             <p>With divine blessings • Developed with ❤️ by mvsabhishek96@gmail.com</p>
           </footer>
         </div>

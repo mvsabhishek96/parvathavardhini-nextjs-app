@@ -52,7 +52,17 @@ module.exports = {
         'light': '#FFF8E1',
         'dark': '#4A2A2A',
         'accent': '#FFD700',
-        'border': '#A1887F', // Add this to fix the border-border error
+        'border': '#A1887F', // Added to fix the border-border error
+        'input': '#D7CCC8',
+        'card': '#FFFFFF',
+        'primary': {
+          DEFAULT: '#880E4F',
+          foreground: '#FFFFFF'
+        },
+        'secondary': {
+          DEFAULT: '#FB8B24',
+          foreground: '#3E2723'
+        }
       },
       backgroundImage: {
         'traditional-pattern': "url('/images/traditional-pattern.png')",

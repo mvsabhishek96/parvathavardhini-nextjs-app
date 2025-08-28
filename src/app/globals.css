@@ -1,42 +1,137 @@
+/* globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: #f5f0e1;
+:root {
+  --primary-color: #FF9933; /* Saffron Orange */
+  --secondary-color: #800000; /* Deep Maroon */
+  --accent-color: #FFD700; /* Gold */
+  --light-color: #FFF8E1; /* Cream */
+  --dark-color: #4A2A2A; /* Dark Brown */
+  --success-color: #2E7D32; /* Deep Green */
+  --error-color: #C62828; /* Strong Red */
+  --warning-color: #FF8F00; /* Amber */
+  --border-radius: 12px;
+  --box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  --transition: all 0.3s ease;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-light-color text-dark-color font-body;
+    background-image: url('/images/traditional-bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+  }
+}
+
+@layer components {
+  .traditional-border {
+    border: 2px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+  }
+  
+  .gold-button {
+    @apply bg-gradient-to-r from-yellow-500 to-yellow-700 hover:from-yellow-600 hover:to-yellow-800 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+  }
+  
+  .form-input {
+    @apply w-full px-4 py-3 border border-maroon-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent bg-white/80;
+  }
+  
+  .form-label {
+    @apply block text-maroon-800 text-sm font-bold mb-2 font-display;
+  }
+  
+  .ornamental-divider {
+    @apply relative text-center my-6;
+  }
+  
+  .ornamental-divider::before,
+  .ornamental-divider::after {
+    content: '';
+    @apply absolute top-1/2 w-1/4 h-0.5 bg-gradient-to-r from-transparent to-maroon-600;
+  }
+  
+  .ornamental-divider::before {
+    @apply left-0;
+  }
+  
+  .ornamental-divider::after {
+    @apply right-0 bg-gradient-to-l from-transparent to-maroon-600;
+  }
+}
+
+/* Enhanced slideshow with traditional styling */
+.slideshow {
+  @apply fixed top-0 left-0 w-full h-full -z-10 overflow-hidden;
+}
+
+.slideshow-image {
+  @apply absolute top-0 left-0 w-full h-full object-cover;
+  animation: kenburns 24s linear infinite;
+  filter: sepia(30%) brightness(85%);
+}
+
+@keyframes kenburns {
+  0%, 100% { opacity: 0; transform: scale(1.15) rotate(2deg) translate(5%, -5%); }
+  4%, 33% { opacity: 1; transform: scale(1) rotate(0deg) translate(0, 0); }
+  37%, 96% { opacity: 0; transform: scale(1) rotate(0deg) translate(0, 0); }
+}
+
+/* Traditional decorative elements */
+.temple-top {
+  @apply w-full h-16 bg-maroon-800 relative;
+  background-image: url('/images/temple-pattern.png');
+  background-size: 200px;
+}
+
+.temple-top::before {
+  content: '';
+  @apply absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8;
+  background-image: url('/images/temple-top.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 /* Responsive Table Styles for Mobile */
 @media (max-width: 767px) {
-    table thead { display: none; }
-    table tr {
-        display: block;
-        border: 1px solid rgba(128, 0, 0, 0.2);
-        border-radius: 12px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        background-color: white;
-    }
-    table td {
-        display: block;
-        text-align: right;
-        border-bottom: 1px dotted rgba(128, 0, 0, 0.1);
-        position: relative;
-        padding-left: 50%;
-    }
-    table td:last-child { border-bottom: 0; }
-    table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 10px;
-        width: calc(50% - 20px);
-        text-align: left;
-        font-weight: 600;
-        color: #800000;
-    }
-    .action-cell {
-        padding-left: 10px;
-        justify-content: center;
-    }
-    .action-cell:before { content: ""; }
+  table thead { display: none; }
+  table tr {
+    display: block;
+    border: 1px solid rgba(128, 0, 0, 0.2);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    background-color: white;
+  }
+  table td {
+    display: block;
+    text-align: right;
+    border-bottom: 1px dotted rgba(128, 0, 0, 0.1);
+    position: relative;
+    padding-left: 50%;
+  }
+  table td:last-child { border-bottom: 0; }
+  table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    width: calc(50% - 20px);
+    text-align: left;
+    font-weight: 600;
+    color: #800000;
+  }
+  .action-cell {
+    padding-left: 10px;
+    justify-content: center;
+  }
+  .action-cell:before { content: ""; }
 }

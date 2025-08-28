@@ -1,3 +1,4 @@
+// page.js
 'use client';
 import LoginForm from '@/components/LoginForm';
 import Header from '@/components/Header';
@@ -17,7 +18,7 @@ export default function HomePage() {
           </div>
         </>
       ) : (
-        <div className="flex justify-center items-center w-full" style={{minHeight: 'calc(100vh - 200px)'}}>
+        <div className="flex justify-center items-center min-h-screen -mt-20">
           <LoginForm />
         </div>
       )}

@@ -2,13 +2,19 @@
 import AuthListener from '@/components/AuthListener';
 import './globals.css';
 import { Laila, Poppins } from 'next/font/google';
+import Image from 'next/image';
 
 const poppins = Poppins({
-  subsets: ['latin'], display: 'swap', variable: '--font-body',
+  subsets: ['latin'], 
+  display: 'swap', 
+  variable: '--font-body',
   weight: ['300', '400', '500', '600', '700']
 });
+
 const laila = Laila({
-  subsets: ['latin'], display: 'swap', variable: '--font-display',
+  subsets: ['latin'], 
+  display: 'swap', 
+  variable: '--font-display',
   weight: ['600', '700']
 });
 
@@ -27,12 +33,30 @@ export default function RootLayout({ children }) {
         
         {/* Background Slideshow */}
         <div className="slideshow">
-          <img src="/images/image1.jpeg" alt="Temple" className="slideshow-image" style={{ animationDelay: '0s' }} />
-          <img src="/images/image2.jpg" alt="Deity" className="slideshow-image" style={{ animationDelay: '8s' }} />
-          <img src="/images/image3.jpeg" alt="Festival" className="slideshow-image" style={{ animationDelay: '16s' }} />
+          <Image 
+            src="/images/image1.jpeg" 
+            alt="Temple" 
+            fill
+            className="slideshow-image" 
+            style={{ animationDelay: '0s' }} 
+          />
+          <Image 
+            src="/images/image2.jpg" 
+            alt="Deity" 
+            fill
+            className="slideshow-image" 
+            style={{ animationDelay: '8s' }} 
+          />
+          <Image 
+            src="/images/image3.jpeg" 
+            alt="Festival" 
+            fill
+            className="slideshow-image" 
+            style={{ animationDelay: '16s' }} 
+          />
         </div>
 
-        <div className="container mx-auto p-4 relative z-10 flex flex-col min-h-screen text-dark-color">
+        <div className="container mx-auto p-4 relative z-10 flex flex-col min-h-screen text-dark">
           <header className="logo text-center my-6">
             <div className="inline-block p-4 rounded-2xl bg-white/70 backdrop-blur-sm traditional-border">
               <h1 className="text-4xl lg:text-5xl font-bold text-maroon-800 font-display mb-2">

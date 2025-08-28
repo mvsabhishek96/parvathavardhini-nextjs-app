@@ -1,3 +1,4 @@
+// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -48,9 +49,10 @@ module.exports = {
           '800': '#9a3412',
           '900': '#7c2d12',
         },
-        'light-color': '#FFF8E1',
-        'dark-color': '#4A2A2A',
-        'accent-color': '#FFD700',
+        'light': '#FFF8E1',
+        'dark': '#4A2A2A',
+        'accent': '#FFD700',
+        'border': '#A1887F', // Add this to fix the border-border error
       },
       backgroundImage: {
         'traditional-pattern': "url('/images/traditional-pattern.png')",

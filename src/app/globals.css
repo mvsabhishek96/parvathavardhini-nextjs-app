@@ -4,14 +4,14 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #FF9933; /* Saffron Orange */
-  --secondary-color: #800000; /* Deep Maroon */
-  --accent-color: #FFD700; /* Gold */
-  --light-color: #FFF8E1; /* Cream */
-  --dark-color: #4A2A2A; /* Dark Brown */
-  --success-color: #2E7D32; /* Deep Green */
-  --error-color: #C62828; /* Strong Red */
-  --warning-color: #FF8F00; /* Amber */
+  --primary: #800000;
+  --secondary: #FF9933;
+  --accent: #FFD700;
+  --light: #FFF8E1;
+  --dark: #4A2A2A;
+  --success: #2E7D32;
+  --error: #C62828;
+  --warning: #FF8F00;
   --border-radius: 12px;
   --box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
   --transition: all 0.3s ease;
@@ -19,10 +19,11 @@
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: theme('colors.border');
   }
+  
   body {
-    @apply bg-light-color text-dark-color font-body;
+    @apply bg-light text-dark font-body;
     background-image: url('/images/traditional-bg.jpg');
     background-size: cover;
     background-attachment: fixed;
@@ -32,9 +33,7 @@
 
 @layer components {
   .traditional-border {
-    border: 2px solid var(--secondary-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+    @apply border-2 border-maroon-800 rounded-xl shadow-lg;
   }
   
   .gold-button {
@@ -80,9 +79,18 @@
 }
 
 @keyframes kenburns {
-  0%, 100% { opacity: 0; transform: scale(1.15) rotate(2deg) translate(5%, -5%); }
-  4%, 33% { opacity: 1; transform: scale(1) rotate(0deg) translate(0, 0); }
-  37%, 96% { opacity: 0; transform: scale(1) rotate(0deg) translate(0, 0); }
+  0%, 100% { 
+    opacity: 0; 
+    transform: scale(1.15) rotate(2deg) translate(5%, -5%); 
+  }
+  4%, 33% { 
+    opacity: 1; 
+    transform: scale(1) rotate(0deg) translate(0, 0); 
+  }
+  37%, 96% { 
+    opacity: 0; 
+    transform: scale(1) rotate(0deg) translate(0, 0); 
+  }
 }
 
 /* Traditional decorative elements */
@@ -103,7 +111,10 @@
 
 /* Responsive Table Styles for Mobile */
 @media (max-width: 767px) {
-  table thead { display: none; }
+  table thead { 
+    display: none; 
+  }
+  
   table tr {
     display: block;
     border: 1px solid rgba(128, 0, 0, 0.2);
@@ -112,6 +123,7 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     background-color: white;
   }
+  
   table td {
     display: block;
     text-align: right;
@@ -119,7 +131,11 @@
     position: relative;
     padding-left: 50%;
   }
-  table td:last-child { border-bottom: 0; }
+  
+  table td:last-child { 
+    border-bottom: 0; 
+  }
+  
   table td:before {
     content: attr(data-label);
     position: absolute;
@@ -129,9 +145,13 @@
     font-weight: 600;
     color: #800000;
   }
+  
   .action-cell {
     padding-left: 10px;
     justify-content: center;
   }
-  .action-cell:before { content: ""; }
+  
+  .action-cell:before { 
+    content: ""; 
+  }
 }

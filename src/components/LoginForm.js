@@ -44,7 +44,10 @@ export default function LoginForm() {
             <div className="relative">
               <i className="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-maroon-600"></i>
               <input
-                type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                type="email" 
+                id="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}
                 className="form-input pl-10"
                 placeholder="your@email.com"
               />
@@ -56,7 +59,10 @@ export default function LoginForm() {
             <div className="relative">
               <i className="fas fa-key absolute left-3 top-1/2 transform -translate-y-1/2 text-maroon-600"></i>
               <input
-                type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                type="password" 
+                id="password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)}
                 className="form-input pl-10"
                 placeholder="Enter your password"
               />
